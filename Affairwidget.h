@@ -39,9 +39,7 @@ private slots:
 
     void on_btn_delete_clicked();
 
-    void on_btn_finish_clicked();
 
-    void on_btn_update_clicked();
 
     void on_selectAll_clicked(bool checked);
 

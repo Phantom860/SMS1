@@ -11,7 +11,7 @@ Affair::Affair()
 
 bool Affair::setData(int id, QString startTime, QString endTime, QString content, QString urgency, QString category)
 {
-    m_id = id;
+
     m_startTime = startTime;
     m_endTime = endTime;
     m_content = content;

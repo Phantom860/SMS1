@@ -16,7 +16,7 @@ MyDatabase::MyDatabase()
 
     QString sql = QString
        ("CREATE TABLE IF NOT EXISTS schedule ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+        "id int primary key not null,"
 
         "startTime TEXT ,"
         "endTime TEXT ,"
@@ -76,9 +76,9 @@ bool MyDatabase::addAffair(Affair &schedule)
         return false;
     }
     QSqlQuery query;
-    query.prepare("insert into schedule (id,startTime,endTime,content,urgency,category)"
-                  "values(NULL,:startTime,:endTime,:content,:urgency,:category)");
-
+    query.prepare("insert into schedule (id,content,startTime,endTime,urgency,category)"
+                  "values(:id,:content,:startTime,:endTime,:urgency,:category)");
+    query.bindValue(":id",schedule.id());
     query.bindValue(":content",schedule.content());
     query.bindValue(":startTime",schedule.startTime());
     query.bindValue(":endTime",schedule.endTime());
@@ -119,16 +119,16 @@ bool MyDatabase::deleteAffair(int id)
 {
     if(!m_db.open())
     {
-        qDebug() << "Failed to Open Database : delete";
+        qDebug() << "Failed to Open Database : deleteAffair";
         return false;
     }
     QSqlQuery query;
     QString sql = QString("delete from schedule where id = %1").arg(id);
     if(!query.exec(sql))
     {
-        qDebug() << "Failed to delete !!!";
+        qDebug() << "Failed to delete!!!";
         m_db.close();
-        return false;
+        return  false;
     }
 
     m_db.close();

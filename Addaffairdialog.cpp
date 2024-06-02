@@ -16,17 +16,18 @@ AddAffairDialog::~AddAffairDialog()
 
 bool AddAffairDialog::clearData()
 {
+    ui->edit_id->clear();
     ui->edit_startTime->clear();
     ui->edit_endTime->clear();
     ui->edit_content->clear();
-    ui->cmb_urgency->clear();
-    ui->cmb_category->clear();
+
 
     return true;
 }
 
 bool AddAffairDialog::display(int id, QString startTime, QString endTime, QString content, QString urgency, QString category)
 {
+    ui->edit_id->setText(QString("%1").arg(id));
     QTime stime = QTime::fromString(startTime,"yyyy/M/d H:mm");
     QTime etime = QTime::fromString(endTime,"yyyy/M/d H:mm");
     ui->edit_startTime->setTime(stime);
@@ -44,7 +45,7 @@ void AddAffairDialog::setIsUpateDlg(bool isUpateDlg)
 
 void AddAffairDialog::on_btn_confirm_clicked()
 {
-    int id = NULL;
+    int id = ui->edit_id->text().toInt();
     QString startTime = ui->edit_startTime->text();
     QString endTime = ui->edit_endTime->text();
     QString content = ui->edit_content->text();
